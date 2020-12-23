@@ -5,6 +5,7 @@ const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
 const app = express()
+const port = process.env.PORT || 3000
 
 // Setup Express config paths and HandleBars
 app.use(express.static(path.join(__dirname, '../public')))
@@ -60,19 +61,6 @@ app.get('/weather', (req, res) => {
   })
 })
 
-app.get('/products', (req, res) => {
-  if (!req.query.search) {
-    return res.send({
-      error: 'Missing query value'
-    })
-  }
-
-  console.log(req.query.search)
-  res.send({
-    products: []
-  })
-})
-
 app.get('/help/*', (req, res) => {
   res.render('404', {
     title: '404 Error',
@@ -89,6 +77,6 @@ app.get('*', (req, res) => {
   })
 })
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000.')
+app.listen(port, () => {
+  console.log('Server started on port ' + port + '.')
 })
